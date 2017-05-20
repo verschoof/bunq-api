@@ -9,7 +9,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Bunq\\Tests": "tests/"
+            "Bunq\\Tests\\": "tests/"
         }
     },
     "require": {
