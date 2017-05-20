@@ -2,6 +2,16 @@
     "name": "verschoof/bunq-api",
     "description": "An API client that talks to bunq",
     "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Bunq\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bunq\\Tests": "tests/"
+        }
+    },
     "require": {
         "php": "^5.6 || ^7.0",
         "guzzlehttp/guzzle": "^6.2",
