@@ -1,6 +1,6 @@
 <?php
 
-namespace Bunq\Test\Certificate;
+namespace Bunq\Tests\Certificate;
 
 use Bunq\Certificate\CertificateType;
 use PHPUnit\Framework\TestCase;

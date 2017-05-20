@@ -1,6 +1,6 @@
 <?php
 
-namespace Bunq\Test\Certificate\Storage;
+namespace Bunq\Tests\Certificate\Storage;
 
 use Bunq\Certificate\CertificateType;
 use Bunq\Certificate\Storage\CertificateNotFoundException;

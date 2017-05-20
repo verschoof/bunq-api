@@ -1,6 +1,6 @@
 <?php
 
-namespace Bunq\Test\Middleware;
+namespace Bunq\Tests\Middleware;
 
 use Bunq\Middleware\RequestAuthenticationMiddleware;
 use Bunq\Token\DefaultToken;

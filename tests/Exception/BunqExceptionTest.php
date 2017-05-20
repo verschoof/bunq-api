@@ -1,6 +1,6 @@
 <?php
 
-namespace Bunq\Test\Exception;
+namespace Bunq\Tests\Exception;
 
 use Bunq\Exception\BunqException;
 use GuzzleHttp\Exception\ClientException;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bunq\Test\Resource;
+namespace Bunq\Tests\Resource;
 
 use Bunq\BunqClient;
 use Bunq\Resource\UserResource;

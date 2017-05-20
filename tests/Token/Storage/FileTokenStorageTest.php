@@ -1,6 +1,6 @@
 <?php
 
-namespace Bunq\Test\Token\Storage;
+namespace Bunq\Tests\Token\Storage;
 
 use Bunq\Token\DefaultToken;
 use Bunq\Token\Storage\FileTokenStorage;

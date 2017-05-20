@@ -1,6 +1,6 @@
 <?php
 
-namespace Bunq\Test\Token;
+namespace Bunq\Tests\Token;
 
 use Bunq\Token\TokenType;
 use PHPUnit\Framework\TestCase;

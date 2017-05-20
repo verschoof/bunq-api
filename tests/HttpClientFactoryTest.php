@@ -1,6 +1,6 @@
 <?php
 
-namespace Bunq\Test;
+namespace Bunq\Tests;
 
 use Bunq\Certificate\CertificateType;
 use Bunq\Certificate\DefaultCertificate;

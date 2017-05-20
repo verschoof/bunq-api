@@ -1,6 +1,6 @@
 <?php
 
-namespace Bunq\Test\Middleware;
+namespace Bunq\Tests\Middleware;
 
 use Bunq\Certificate\DefaultCertificate;
 use Bunq\Middleware\RequestSignatureMiddleware;
