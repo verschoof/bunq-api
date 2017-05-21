@@ -10,7 +10,7 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\ResponseInterface;
 
-final class DefaultInstallationServiceService implements InstallationService
+final class DefaultInstallationService implements InstallationService
 {
     /**
      * @var ClientInterface

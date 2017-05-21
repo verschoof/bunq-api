@@ -5,7 +5,7 @@ namespace Bunq\Tests\Service;
 use Bunq\Certificate\CertificateType;
 use Bunq\Certificate\DefaultCertificate;
 use Bunq\Certificate\Storage\CertificateStorage;
-use Bunq\Service\DefaultInstallationServiceService;
+use Bunq\Service\DefaultInstallationService;
 use Bunq\Token\DefaultToken;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +25,7 @@ final class InstallationServiceTest extends TestCase
     private $certificateStorage;
 
     /**
-     * @var DefaultInstallationServiceService
+     * @var DefaultInstallationService
      */
     private $service;
 
@@ -34,7 +34,7 @@ final class InstallationServiceTest extends TestCase
         $this->httpClient         = $this->prophesize(ClientInterface::class);
         $this->certificateStorage = $this->prophesize(CertificateStorage::class);
 
-        $this->service = new DefaultInstallationServiceService(
+        $this->service = new DefaultInstallationService(
             $this->httpClient->reveal(),
             $this->certificateStorage->reveal(),
             'apiKey',
