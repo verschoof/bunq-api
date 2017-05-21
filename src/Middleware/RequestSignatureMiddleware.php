@@ -6,6 +6,10 @@ use Bunq\Certificate\Certificate;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
 
+/**
+ * @author Dennis de Greef (original author)
+ * @author Mitchel Verschoof
+ */
 final class RequestSignatureMiddleware
 {
     const SIGNATURE_ALGORITHM = OPENSSL_ALGO_SHA256;

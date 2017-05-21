@@ -8,6 +8,8 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
+ * @author Dennis de Greef
+ *
  * Be able to debug request and responses
  *
  * Usage:

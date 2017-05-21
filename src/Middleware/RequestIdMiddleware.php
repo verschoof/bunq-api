@@ -6,6 +6,10 @@ use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @author Dennis de Greef (original author)
+ * @author Mitchel Verschoof
+ */
 final class RequestIdMiddleware
 {
     /**

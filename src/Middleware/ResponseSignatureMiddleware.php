@@ -5,6 +5,10 @@ namespace Bunq\Middleware;
 use Bunq\Certificate\Certificate;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * @author Dennis de Greef (original author)
+ * @author Mitchel Verschoof
+ */
 final class ResponseSignatureMiddleware
 {
     const SIGNATURE_ALGORITHM = OPENSSL_ALGO_SHA256;
