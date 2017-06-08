@@ -3,6 +3,7 @@
 namespace Bunq;
 
 use Bunq\Exception\BunqException;
+use Bunq\Exception\SessionWasExpiredException;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 
@@ -67,11 +68,25 @@ final class Client implements BunqClient
     private function requestAPI($method, $url, array $options = [])
     {
         try {
-            $response = $this->httpClient->request((string)$method, $url, $options);
-
-            return json_decode($response->getBody(), true);
+            return $this->sendRequest((string)$method, (string)$url, $options);
+        } catch (SessionWasExpiredException $e) {
+            return $this->sendRequest((string)$method, (string)$url, $options);
         } catch (ClientException $e) {
             throw new BunqException($e);
         }
+    }
+
+    /**
+     * @param string $method
+     * @param string $url
+     * @param array  $options
+     *
+     * @return mixed
+     */
+    private function sendRequest($method, $url, array $options = [])
+    {
+        $response = $this->httpClient->request((string)$method, $url, $options);
+
+        return json_decode($response->getBody(), true);
     }
 }

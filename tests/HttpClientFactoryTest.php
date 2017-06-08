@@ -6,12 +6,15 @@ use Bunq\Certificate\CertificateType;
 use Bunq\Certificate\DefaultCertificate;
 use Bunq\Certificate\Storage\CertificateStorage;
 use Bunq\HttpClientFactory;
+use Bunq\Middleware\RefreshSessionMiddleware;
 use Bunq\Middleware\RequestAuthenticationMiddleware;
 use Bunq\Middleware\RequestIdMiddleware;
 use Bunq\Middleware\RequestSignatureMiddleware;
 use Bunq\Middleware\ResponseSignatureMiddleware;
+use Bunq\Service\InstallationService;
 use Bunq\Service\TokenService;
 use Bunq\Token\DefaultToken;
+use Bunq\Token\Storage\TokenStorage;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use PHPUnit\Framework\TestCase;
@@ -74,7 +77,19 @@ final class HttpClientFactoryTest extends TestCase
         $tokenService = $this->prophesize(TokenService::class);
         $tokenService->sessionToken()->willReturn($sessionToken);
 
-        $client = HttpClientFactory::create($baseUrl, $tokenService->reveal(), $certificateStorage->reveal());
+        /** @var InstallationService|ObjectProphecy $installationService */
+        $installationService = $this->prophesize(InstallationService::class);
+
+        /** @var TokenStorage|ObjectProphecy $tokenStorage */
+        $tokenStorage = $this->prophesize(TokenStorage::class);
+
+        $client = HttpClientFactory::create(
+            $baseUrl,
+            $tokenService->reveal(),
+            $certificateStorage->reveal(),
+            $installationService->reveal(),
+            $tokenStorage->reveal()
+        );
 
         $expectedHandlerStack = HandlerStack::create();
         $expectedHandlerStack->push(
@@ -88,6 +103,9 @@ final class HttpClientFactoryTest extends TestCase
         );
         $expectedHandlerStack->push(
             Middleware::mapResponse(new ResponseSignatureMiddleware($bunqCertificate))
+        );
+        $expectedHandlerStack->push(
+            Middleware::mapResponse(new RefreshSessionMiddleware($installationService->reveal(), $tokenStorage->reveal()))
         );
 
         $expectedClient = new \GuzzleHttp\Client(
