@@ -38,6 +38,5 @@ final class BunqExceptionTest extends TestCase
         $this->assertInstanceOf(\Exception::class, $bunqException);
         $this->assertSame('Path: /path, Message: body', $bunqException->getMessage());
         $this->assertSame(403, $bunqException->getCode());
-
     }
 }
