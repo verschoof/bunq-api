@@ -4,11 +4,14 @@ namespace Bunq;
 
 use Bunq\Certificate\CertificateType;
 use Bunq\Certificate\Storage\CertificateStorage;
+use Bunq\Middleware\RefreshSessionMiddleware;
 use Bunq\Middleware\RequestAuthenticationMiddleware;
 use Bunq\Middleware\RequestIdMiddleware;
 use Bunq\Middleware\RequestSignatureMiddleware;
 use Bunq\Middleware\ResponseSignatureMiddleware;
+use Bunq\Service\InstallationService;
 use Bunq\Service\TokenService;
+use Bunq\Token\Storage\TokenStorage;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
@@ -39,14 +42,21 @@ final class HttpClientFactory
     /**
      * Creates the HttpClient with all handlers
      *
-     * @param string             $url
-     * @param TokenService       $tokenService
-     * @param CertificateStorage $certificateStorage
+     * @param string              $url
+     * @param TokenService        $tokenService
+     * @param CertificateStorage  $certificateStorage
+     * @param InstallationService $installationService
+     * @param TokenStorage        $tokenStorage
      *
      * @return ClientInterface
      */
-    public static function create($url, TokenService $tokenService, CertificateStorage $certificateStorage)
-    {
+    public static function create(
+        $url,
+        TokenService $tokenService,
+        CertificateStorage $certificateStorage,
+        InstallationService $installationService,
+        TokenStorage $tokenStorage
+    ) {
         $sessionToken    = $tokenService->sessionToken();
         $publicServerKey = $certificateStorage->load(CertificateType::BUNQ_SERVER_KEY());
 
@@ -62,6 +72,9 @@ final class HttpClientFactory
         );
         $handlerStack->push(
             Middleware::mapResponse(new ResponseSignatureMiddleware($publicServerKey))
+        );
+        $handlerStack->push(
+            Middleware::mapResponse(new RefreshSessionMiddleware($installationService, $tokenStorage))
         );
 
         $httpClient = self::createBaseClient($url, $handlerStack);
